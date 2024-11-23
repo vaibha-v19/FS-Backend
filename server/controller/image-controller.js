@@ -12,8 +12,10 @@ export const uploadImage = async (request, response) => {
 
   try {
     const file = await File.create(fileObj);
+    const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 8000}`;
+    const fileUrl = `${baseUrl}/file/${file._id}`;
     console.log('File created:', file); // Log the created file
-    response.status(200).json({ path: `http://localhost:${8000}/file/${file._id}` });
+    response.status(200).json({ path: fileUrl });
   } catch (error) {
     console.error(error.message);
     response.status(500).json({ error: error.message });
